@@ -27,7 +27,11 @@ trait HasLabel
 
     public function getLabel(): string|Htmlable
     {
-        $label = $this->evaluate($this->label) ?? (string) str($this->getName())
+        if($this->label) {
+            return $this->evaluate($this->label);
+        }
+
+        $label = $this->evaluate((string) str($this->getName()))
             ->beforeLast('.')
             ->afterLast('.')
             ->kebab()
